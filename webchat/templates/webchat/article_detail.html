@@ -1,0 +1,84 @@
+{% extends "webchat/base.html" %}
+
+{% load static %}
+
+<style>
+    /* سبک‌های سفارشی */
+    .article-detail-container {
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .article-card {
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transition: box-shadow 0.3s ease-in-out;
+        overflow: hidden;
+    }
+
+    .article-card:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .article-card .card-img-top {
+        max-height: 400px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .article-card:hover .card-img-top {
+        transform: scale(1.03);
+    }
+
+    .article-card .card-body {
+        padding: 2rem;
+    }
+
+    .article-card .card-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #343a40;
+        margin-bottom: 1rem;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-card .text-muted {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        color: #6c757d !important;
+    }
+
+    .article-card .text-muted i {
+        margin-left: 0.5rem;
+    }
+
+    .article-card .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #495057;
+    }
+
+    .article-card .article-content p {
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+{% block content %}
+<div class="container article-detail-container">
+    <div class="card article-card">
+        {% if article.image %}
+        <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+        {% endif %}
+        <div class="card-body">
+            <h2 class="card-title text-center">{{ article.title }}</h2>
+            <p class="text-muted text-center">
+                <i class="far fa-calendar-alt"></i> {{ article.published_date|date:"Y-m-d" }}
+                <i class="fas fa-user"></i> {{ article.author }}
+            </p>
+            <div class="article-content">
+                {{ article.content|linebreaks }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

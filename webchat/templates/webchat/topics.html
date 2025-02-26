@@ -1,0 +1,118 @@
+{% extends "webchat/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f9f9fb;
+        font-family: 'Roboto', sans-serif; /* A widely supported, modern font */
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .container {
+        margin-top: 30px;
+        padding: 20px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #4a4a4a;
+        text-align: center;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em; /* Subtle letter spacing */
+    }
+
+    .topic-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease-in-out;
+        border: none;
+        overflow: hidden; /* Ensures the box-shadow doesn't get cut off on hover */
+    }
+
+    .topic-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+        padding: 25px;
+        text-align: center;
+    }
+
+    .topic-link {
+        color: #2980b9; /* A more vibrant, inviting blue */
+        font-size: 1.25rem; /* Slightly larger and friendlier */
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease; /* Smooth color transition */
+    }
+
+    .topic-link:hover {
+        color: #3498db; /* A lighter shade on hover */
+        text-decoration: none; /* Underline is often seen as outdated */
+    }
+
+    .no-topics-alert {
+        background-color: #fefefe;
+        color: #c0392b; /* A darker, more sophisticated red */
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #e74c3c; /* A subtle border */
+        font-size: 1.1rem;
+    }
+
+    /* Responsive adjustments for smaller screens */
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .topic-link {
+            font-size: 1.1rem;
+        }
+
+        .no-topics-alert {
+            font-size: 1rem;
+            padding: 15px;
+        }
+    }
+
+    /* Grid layout for topics */
+    .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+    }
+</style>
+
+<div class="container">
+    <h2 class="section-title">📌 Topics</h2>
+
+    {% if topics %}
+        <div class="topics-grid">
+            {% for topic in topics %}
+                <div class="topic-card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'webchat:topic' topic.id %}" class="topic-link">
+                                {{ topic }}
+                            </a>
+                        </h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-topics-alert" role="alert">
+            🚨 <strong>No topics have been added yet.</strong>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

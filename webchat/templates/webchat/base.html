@@ -1,0 +1,173 @@
+{% load bootstrap3 %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>وب‌سایت</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Optional: Font Awesome for more icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40; /* Darker, more readable text */
+        }
+
+        /* Navbar styles */
+        .navbar {
+            margin-bottom: 20px; /* Added margin */
+            border-radius: 0;
+            background-color: #343a40; /* Dark background */
+            border: none;
+            min-height: 60px; /* Ensure adequate height */
+        }
+
+        .navbar-brand {
+            color: #fff !important; /* White text for brand */
+            font-size: 24px;
+            line-height: 30px; /* Vertically center the brand */
+            padding: 15px;
+        }
+
+        .navbar-nav > li > a {
+            color: #fff !important;
+            line-height: 30px; /* Vertically center links */
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .navbar-nav > li > a:hover,
+        .navbar-nav > li > a:focus {
+            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover */
+        }
+
+        .navbar-toggle {
+            border-color: #fff;
+        }
+
+        .navbar-toggle .icon-bar {
+            background-color: #fff;
+        }
+
+        /* Carousel styles */
+        .carousel-inner img {
+            width: 100%;
+            margin: auto;
+            min-height: 300px; /* Increased minimum height */
+            max-height: 500px;  /* Added maximum height for better control */
+            object-fit: cover; /* Ensure images fill the space without distortion */
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            bottom: 50px; /* Position the caption */
+        }
+
+        /* Content styles */
+        .container {
+            padding: 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .row {
+            margin-bottom: 20px;
+        }
+
+        .img-responsive {
+            width: 100%;
+            object-fit: cover; /* Ensure images fill the space without distortion */
+            height: 150px;   /* Added height */
+        }
+
+        .well {
+            background-color: #fff;
+            border: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #343a40; /* Dark background */
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+        }
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .carousel-caption {
+                display: none;
+            }
+            .navbar-brand {
+                font-size: 20px; /* Smaller brand on smaller screens */
+            }
+
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+ 
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">AM</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'webchat:index' %}"><i class="fas fa-home"></i> خانه</a></li>
+                <li><a href="{% url 'webchat:topics' %}"><i class="fas fa-newspaper"></i> مقالات</a></li>
+                <li><a href="{% url 'webchat:book_list' %}"><i class="fas fa-book"></i> فروشگاه کتاب</a></li>
+                <li><a href="{% url 'webchat:article_list' %}"><i class="fas fa-newspaper"></i>اخبار علمی</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li><p class="navbar-text">Hello, {{ user.username }}.</p></li>
+                    <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                {% else %}
+                    <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> ورود</a></li>
+                    <li><a href="{% url 'users:register' %}"><i class="fas fa-user-plus"></i> ثبت نام</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+{% block content %}
+
+
+{% endblock content %}
+{% block footer %}
+<footer class="container-fluid text-center">
+  <p>&copy; 2024 AM. All rights reserved. | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p>
+</footer>
+{% endblock footer %}

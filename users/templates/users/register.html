@@ -1,0 +1,36 @@
+{% extends "webchat/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ایجاد حساب کاربری جدید</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post" action="{% url 'users:register' %}">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <span class="help-block">{{ field.errors|join:", " }}</span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+
+                        <button type="submit" class="btn btn-success btn-block">ثبت نام</button>
+                        <input type="hidden" name="next" value="{% url 'webchat:index' %}" />
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    قبلا ثبت نام کرده اید؟ <a href="{% url 'users:login' %}">ورود به حساب کاربری</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

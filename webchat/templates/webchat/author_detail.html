@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ author.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>{{ author.name }}</h1>
+    <p>Email: {{ author.email }}</p>
+    <h2>Books by {{ author.name }}</h2>
+    <ul>
+    {% for book in author.books.all %}
+        <li>
+            <a href="{% url 'book_detail' book.pk %}">{{ book.title }}</a> - ${{ book.price }}
+        </li>
+    {% endfor %}
+    </ul>
+    <a href="{% url 'author_list' %}" class="btn btn-primary">Back to Author List</a>
+</div>
+</body>
+</html>
