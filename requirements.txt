@@ -11,3 +11,10 @@ sqlparse==0.5.3
 static3==0.7.0
 typing_extensions==4.12.2
 psycopg2>=2.6.1
+whitenoise[brotli]>=6,<7
+Brotli  ==        1.1.0
+pip       ==        24.3.1
+requests
+
+
+
