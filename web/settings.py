@@ -143,7 +143,9 @@ BOOTSTRAP3 = {
 import dj_database_url
 
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')  # جایگزینی با دیتابیس Heroku
+    "default": dj_database_url.config(
+        default="sqlite:///db.sqlite3"  # اگر DATABASE_URL تنظیم نشده باشد، SQLite استفاده می‌شود
+    )
 }
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'
