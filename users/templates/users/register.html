@@ -1,36 +1,70 @@
 {% extends "webchat/base.html" %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">ایجاد حساب کاربری جدید</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="post" action="{% url 'users:register' %}">
-                        {% csrf_token %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 12px;">
+        <div class="card-body">
+            <h3 class="text-center mb-3">📝 ثبت نام</h3>
+            <p class="text-center text-muted small">حساب کاربری جدید ایجاد کنید و از امکانات سایت بهره‌مند شوید.</p>
 
-                        {% for field in form %}
-                            <div class="form-group">
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                                {% if field.errors %}
-                                    <span class="help-block">{{ field.errors|join:", " }}</span>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+            <form method="post" action="{% url 'users:register' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
 
-                        <button type="submit" class="btn btn-success btn-block">ثبت نام</button>
-                        <input type="hidden" name="next" value="{% url 'webchat:index' %}" />
-                    </form>
-                </div>
-                <div class="panel-footer">
-                    قبلا ثبت نام کرده اید؟ <a href="{% url 'users:login' %}">ورود به حساب کاربری</a>
-                </div>
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="btn btn-success w-100 py-2">🎉 ثبت نام</button>
+                <input type="hidden" name="next" value="{% url 'webchat:index' %}" />
+            </form>
+
+            <div class="text-center mt-3">
+                <p class="small">🔐 قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'users:login' %}" class="text-decoration-none text-primary">ورود به حساب</a></p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- استایل سفارشی -->
+<style>
+    body {
+        background: linear-gradient(135deg, #4CAF50, #2E7D32);
+        font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .card {
+        background: white;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .form-label {
+        color: #333;
+    }
+
+    .btn-success {
+        background: #2E7D32;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-success:hover {
+        background: #1B5E20;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
 {% endblock %}

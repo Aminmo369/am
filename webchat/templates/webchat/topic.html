@@ -1,7 +1,7 @@
 {% extends "webchat/base.html" %}
-
 {% load static %}
 {% block content %}
+
 <style>
     body {
         background-color: #f8f9fa;
@@ -11,18 +11,22 @@
 
     .container {
         margin-top: 30px;
+        max-width: 900px;
     }
 
     .panel {
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
         border: none;
+        background: #fff;
+        overflow: hidden;
+        padding-bottom: 20px;
     }
 
     .panel-heading {
-        background-color: #007bff !important; /* Bootstrap Primary Color */
-        color: white !important;
-        font-weight: 500; /* Slightly lighter font weight */
+        background: linear-gradient(135deg, #007bff, #6610f2);
+        color: white;
+        font-weight: bold;
         padding: 20px;
         border-radius: 15px 15px 0 0;
         text-align: center;
@@ -34,7 +38,7 @@
     }
 
     .text-muted {
-        color: #6c757d !important; /* Bootstrap muted color */
+        color: #6c757d;
         font-size: 16px;
     }
 
@@ -43,37 +47,49 @@
     }
 
     .list-group-item {
-        border-left: 5px solid #007bff; /* Accent color */
+        border-left: 5px solid #6610f2;
         margin-bottom: 15px;
         border-radius: 8px;
         padding: 15px;
-        background-color: #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         border: none;
-        transition: transform 0.2s ease-in-out; /* Smooth transition for hover effect */
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
     }
 
     .list-group-item:hover {
-        transform: translateY(-3px); /* Slight lift on hover */
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
 
     .entry-date {
         font-size: 14px;
         color: #6c757d;
-        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .entry-date i {
+        margin-left: 5px;
+        color: #007bff;
     }
 
     .entry-text {
-        font-size: 18px; /* Slightly larger text */
-        color: #343a40;
-        line-height: 1.7;
-    }
-
-    .text-danger {
         font-size: 18px;
+        color: #343a40;
+        line-height: 1.8;
     }
 
-    /* Responsive adjustments */
+    .empty-message {
+        font-size: 18px;
+        color: #dc3545;
+        text-align: center;
+        padding: 20px;
+    }
+
     @media (max-width: 768px) {
         .panel-heading {
             font-size: 20px;
@@ -84,33 +100,32 @@
             font-size: 16px;
         }
 
-        .text-danger {
+        .empty-message {
             font-size: 16px;
         }
     }
 </style>
 
-
 <div class="container">
-    <div class="panel panel-default">
+    <div class="panel">
         <div class="panel-heading">
-            <h2 class="panel-title">موضوع: {{ topic }}</h2>
+            <h2>📌 موضوع: {{ topic }}</h2>
         </div>
 
         <div class="panel-body">
-            <p class="text-muted">لیست ورودی‌ها:</p>
+            <p class="text-muted">📜 لیست ورودی‌ها:</p>
             <ul class="list-group">
-
                 {% for entry in entries %}
                     <li class="list-group-item">
-                        <p class="entry-date"><i class="glyphicon glyphicon-time"></i> {{ entry.date_added | date:'M d, Y H:i' }}</p>
+                        <p class="entry-date"><i class="fas fa-clock"></i> {{ entry.date_added | date:'d M Y - H:i' }}</p>
                         <p class="entry-text">{{ entry.text|linebreaks }}</p>
                     </li>
                 {% empty %}
-                    <li class="list-group-item text-danger">هیچ ورودی‌ای وجود ندارد.</li>
+                    <li class="list-group-item empty-message">❌ هیچ ورودی‌ای وجود ندارد.</li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 </div>
+
 {% endblock content %}

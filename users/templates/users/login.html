@@ -1,44 +1,76 @@
 {% extends "webchat/base.html" %}
 
 {% block content %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 12px;">
+        <div class="card-body">
+            <h3 class="text-center mb-3">🔑 ورود به حساب</h3>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">ورود به حساب کاربری</h3>
+            {% if form.errors %}
+                <div class="alert alert-danger text-center">
+                    نام کاربری یا رمز عبور اشتباه است. لطفاً دوباره تلاش کنید.
                 </div>
-                <div class="panel-body">
-                    {% if form.errors %}
-                        <div class="alert alert-danger">
-                            نام کاربری یا رمز عبور اشتباه است. لطفا دوباره تلاش کنید.
-                        </div>
-                    {% endif %}
+            {% endif %}
 
-                    <form method="post" action="{% url 'users:login' %}">
-                        {% csrf_token %}
+            <form method="post" action="{% url 'users:login' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
 
-                        {% for field in form %}
-                            <div class="form-group">
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                                {% if field.errors %}
-                                    <span class="help-block">{{ field.errors|join:", " }}</span>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+                <button type="submit" class="btn btn-primary w-100 py-2">ورود</button>
+                <input type="hidden" name="next" value="{% url 'webchat:index' %}" />
+            </form>
 
-                        <button type="submit" class="btn btn-primary btn-block">ورود</button>
-                        <input type="hidden" name="next" value="{% url 'webchat:index' %}" />
-                    </form>
-                </div>
-                <div class="panel-footer">
-                    هنوز حساب کاربری ندارید؟ <a href="{% url 'users:register' %}">ثبت نام کنید</a>
-                </div>
+            <div class="text-center mt-3">
+              
+                <p class="small">🆕 هنوز حساب ندارید؟ <a href="{% url 'users:register' %}" class="text-decoration-none text-primary">ثبت نام کنید</a></p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- استایل سفارشی -->
+<style>
+    body {
+        background: linear-gradient(135deg, #4a90e2, #007bff);
+        font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .card {
+        background: white;
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .form-label {
+        color: #333;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        border-radius: 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
 
 {% endblock content %}

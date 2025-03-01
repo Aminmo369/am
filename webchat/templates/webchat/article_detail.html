@@ -1,26 +1,35 @@
 {% extends "webchat/base.html" %}
-
 {% load static %}
 
+{% block content %}
 <style>
-    /* سبک‌های سفارشی */
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+        direction: rtl;
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+
     .article-detail-container {
-        margin-top: 3rem;
-        margin-bottom: 3rem;
+        margin: 3rem auto;
+        max-width: 900px;
     }
 
     .article-card {
         border-radius: 15px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        transition: box-shadow 0.3s ease-in-out;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+        background: white;
         overflow: hidden;
     }
 
     .article-card:hover {
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
     }
 
     .article-card .card-img-top {
+        width: 100%;
         max-height: 400px;
         object-fit: cover;
         transition: transform 0.3s ease-in-out;
@@ -32,24 +41,27 @@
 
     .article-card .card-body {
         padding: 2rem;
+        text-align: justify;
     }
 
     .article-card .card-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #343a40;
+        font-size: 2rem;
+        font-weight: bold;
+        color: #212529;
+        text-align: center;
         margin-bottom: 1rem;
         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     }
 
-    .article-card .text-muted {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-        color: #6c757d !important;
+    .article-card .article-meta {
+        text-align: center;
+        font-size: 0.95rem;
+        color: #6c757d;
+        margin-bottom: 1.5rem;
     }
 
-    .article-card .text-muted i {
-        margin-left: 0.5rem;
+    .article-card .article-meta i {
+        margin-left: 0.4rem;
     }
 
     .article-card .article-content {
@@ -61,23 +73,42 @@
     .article-card .article-content p {
         margin-bottom: 1.5rem;
     }
+
+    .btn-back {
+        display: block;
+        width: fit-content;
+        margin: 2rem auto 0;
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .btn-back:hover {
+        background: #0056b3;
+    }
 </style>
 
-{% block content %}
 <div class="container article-detail-container">
     <div class="card article-card">
         {% if article.image %}
-        <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+            <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
         {% endif %}
         <div class="card-body">
-            <h2 class="card-title text-center">{{ article.title }}</h2>
-            <p class="text-muted text-center">
+            <h2 class="card-title">{{ article.title }}</h2>
+            <p class="article-meta">
                 <i class="far fa-calendar-alt"></i> {{ article.published_date|date:"Y-m-d" }}
                 <i class="fas fa-user"></i> {{ article.author }}
             </p>
             <div class="article-content">
                 {{ article.content|linebreaks }}
             </div>
+            <a href="{% url 'webchat:article_list' %}" class="btn-back">
+                بازگشت به مقالات <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 </div>

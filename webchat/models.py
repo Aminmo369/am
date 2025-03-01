@@ -177,7 +177,7 @@ from datetime import date
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True, blank=True)
+    email = models.EmailField( blank=True,null=True)
 
     def __str__(self):
         return self.name  # نمایش نام نویسنده در پنل ادمین
@@ -238,7 +238,7 @@ class Car(models.Model):
     def __str__(self):
         return f"{self.name} - {self.color} ({self.model_year})"
     
-####################
+###########################################
 
 from django.contrib.auth.models import User
 from django.utils.text import slugify

@@ -1,26 +1,33 @@
 {% extends "webchat/base.html" %}
-
 {% load static %}
 
+{% block content %}
 <style>
-    /* سبک‌های سفارشی */
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+        direction: rtl;
+        background-color: #f8f9fa;
+        color: #343a40;
+    }
+
     .article-card {
         border-radius: 12px;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        overflow: hidden; /* برای جلوگیری از بیرون زدن محتوا از border-radius */
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        height: 100%; /* اطمینان از ارتفاع یکسان کارت‌ها */
+        height: 100%;
+        background: white;
     }
 
     .article-card:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .article-card .card-img-top {
-        height: 220px;
+        height: 200px;
         object-fit: cover;
         transition: transform 0.3s ease-in-out;
     }
@@ -30,14 +37,15 @@
     }
 
     .article-card .card-body {
-        flex-grow: 1; /* اجازه می‌دهد بدنه کارت فضای موجود را پر کند */
+        flex-grow: 1;
         display: flex;
         flex-direction: column;
-        justify-content: space-between; /* دکمه مشاهده را به پایین کارت می‌چسباند */
+        justify-content: space-between;
     }
 
     .article-card .card-title {
-        font-size: 1.25rem;
+        font-size: 1.2rem;
+        font-weight: 600;
         margin-bottom: 0.75rem;
     }
 
@@ -48,6 +56,11 @@
 
     .article-card .btn {
         border-radius: 8px;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .article-card .btn:hover {
+        background: #0056b3;
     }
 
     .pagination .btn {
@@ -61,7 +74,6 @@
     }
 </style>
 
-{% block content %}
 <div class="container mt-5">
     <h2 class="text-center mb-4 text-primary">
         <i class="fas fa-newspaper"></i> آخرین اخبار علمی دنیا
@@ -73,30 +85,29 @@
             <div class="card article-card">
                 <a href="{% url 'webchat:article_detail' article.slug %}" class="text-decoration-none">
                     {% if article.image %}
-                    <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
+                        <img src="{{ article.image.url }}" class="card-img-top" alt="{{ article.title }}">
                     {% else %}
-                    <img src="https://via.placeholder.com/400x220?text=No+Image" class="card-img-top"
-                        alt="No Image">
+                        <img src="https://via.placeholder.com/400x220?text=No+Image" class="card-img-top" alt="No Image">
                     {% endif %}
                 </a>
-                <div class="card-body d-flex flex-column">
-                    <div>
-                        <h5 class="card-title">
-                            <a href="{% url 'webchat:article_detail' article.slug %}"
-                                class="text-dark text-decoration-none">
-                                {{ article.title }}
-                            </a>
-                        </h5>
-                        <p class="card-text">
-                            <small><i class="far fa-calendar-alt"></i> {{ article.published_date|date:"Y-m-d" }}</small>
-                        </p>
-                    </div>
-                    <div class="mt-auto">
+                <div class="card-body">
+                    <h5 class="card-title">
                         <a href="{% url 'webchat:article_detail' article.slug %}"
-                            class="btn btn-primary btn-sm">مشاهده <i class="fas fa-arrow-right"></i></a>
-                    </div>
+                           class="text-dark text-decoration-none">
+                            {{ article.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text">
+                        <small><i class="far fa-calendar-alt"></i> {{ article.published_date|date:"Y-m-d" }}</small>
+                    </p>
+                    <a href="{% url 'webchat:article_detail' article.slug %}"
+                       class="btn btn-primary btn-sm mt-3">مشاهده <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
+        </div>
+        {% empty %}
+        <div class="col-md-12">
+            <div class="alert alert-warning text-center">🚨 هیچ مقاله‌ای موجود نیست.</div>
         </div>
         {% endfor %}
     </div>
@@ -104,12 +115,12 @@
     {% if is_paginated %}
     <div class="pagination mt-4 d-flex justify-content-center">
         {% if page_obj.has_previous %}
-        <a href="?page=1" class="btn btn-outline-secondary btn-sm">
-            <i class="fas fa-angle-double-right"></i> اولین
-        </a>
-        <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary btn-sm">
-            <i class="fas fa-angle-right"></i> قبلی
-        </a>
+            <a href="?page=1" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-angle-double-right"></i> اولین
+            </a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-angle-right"></i> قبلی
+            </a>
         {% endif %}
 
         <span class="btn btn-outline-dark btn-sm disabled">
@@ -117,12 +128,12 @@
         </span>
 
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary btn-sm">
-            بعدی <i class="fas fa-angle-left"></i>
-        </a>
-        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary btn-sm">
-            آخرین <i class="fas fa-angle-double-left"></i>
-        </a>
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-secondary btn-sm">
+                بعدی <i class="fas fa-angle-left"></i>
+            </a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-secondary btn-sm">
+                آخرین <i class="fas fa-angle-double-left"></i>
+            </a>
         {% endif %}
     </div>
     {% endif %}

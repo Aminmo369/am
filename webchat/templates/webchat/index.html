@@ -1,135 +1,493 @@
 {% extends "webchat/base.html" %}
-
 {% block content %}
 <style>
-/* General styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-.container {
+    /* General Styles */
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+    .text-center {
+        text-align: center;
+    }
+    
+    /* Hero Section */
+    .hero {
+    display: flex;
+    justify-content: center; /* وسط‌چین افقی */
+    align-items: center; /* وسط‌چین عمودی */
+    flex-direction: column; /* قرار گرفتن عناصر زیر هم */
+    text-align: center; /* وسط‌چین متن */
+    height: 60vh; /* ارتفاع مناسب */
+    background: linear-gradient(to right, #007bff, #6610f2); /* رنگ پس‌زمینه */
+    color: white;
     padding: 20px;
-    margin-top: 20px; /* Add margin to separate from navbar */
 }
 
-.text-center {
-    text-align: center;
+.hero-content {
+    max-width: 600px; /* عرض مناسب برای خوانایی بهتر */
+}
+    .hero h1 {
+        font-size: 1.5rem;
+    }
+    .hero p {
+        font-size: 1.5rem;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        transition: background 0.3s;
+    }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    
+    /* Services Section */
+    .service-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+    }
+    .service-card i {
+        font-size: 3rem;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+    
+    /* Features Section */
+    .feature-box {
+        background: #e9ecef;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    .feature-box i {
+        font-size: 3rem;
+        color: #17a2b8;
+        margin-bottom: 10px;
+    }
+    
+/* استایل بخش نظرات */
+.testimonials {
+    margin: 50px 0;
+    padding: 40px 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
 }
 
-/* Carousel styles */
-#myCarousel {
-    margin-bottom: 30px; /* Spacing below the carousel */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #343a40;
 }
 
-.carousel-inner img {
-    width: 100%;
-    margin: auto;
-    min-height: 300px;
-    max-height: 500px;
-    object-fit: cover;
-}
-
-.carousel-caption {
-    background-color: rgba(0, 0, 0, 0.5);
+/* باکس نظرات */
+.testimonial-box {
+    background: white;
     padding: 20px;
     border-radius: 10px;
-    bottom: 50px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+    position: relative;
 }
 
-/* Service styles */
-.row {
+.testimonial-box:hover {
+    transform: translateY(-5px);
+}
+
+/* تصویر کاربران */
+.testimonial-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #0dcaf0; /* رنگ بوت‌استرپ */
+}
+
+/* نقل قول */
+blockquote {
+    font-style: italic;
+    color: #555;
+    margin: 10px 0;
+}
+
+blockquote cite {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #222;
+}
+
+blockquote span {
+    font-size: 14px;
+    color: #666;
+}
+/* استایل بخش خدمات و ویژگی‌ها */
+.section-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #343a40;
+}
+
+/* استایل کارت‌های خدمات */
+.service-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
     margin-bottom: 20px;
 }
 
-.col-sm-4 {
-    padding: 10px; /* Add padding for better spacing */
+.service-card i {
+    font-size: 40px;
+    color: #0dcaf0;
+    margin-bottom: 15px;
 }
 
-.img-responsive {
-    width: 100%;
-    object-fit: cover;
-    height: 150px;
-    border-radius: 5px; /* Rounded corners for images */
+.service-card:hover {
+    transform: translateY(-5px);
+    background: #f8f9fa;
 }
 
-/* Well styles */
-.well {
-    background-color: #f8f9fa; /* Light background color */
-    border: 1px solid #dee2e6; /* Light border */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+/* استایل ویژگی‌ها */
+.feature-box {
+    background: white;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 20px;
 }
 
-.well h4 {
-    margin-top: 0; /* Remove default margin-top */
+.feature-box i {
+    font-size: 35px;
+    color: #fd7e14;
+    margin-bottom: 10px;
 }
+
+.feature-box:hover {
+    transform: scale(1.05);
+    background: #f8f9fa;
+}
+/* استایل بخش تماس با ما */
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #343a40;
+}
+
+.contact-info {
+    text-align: center;
+    padding: 20px;
+}
+
+.contact-info i {
+    font-size: 35px;
+    color: #0dcaf0;
+    margin-bottom: 10px;
+}
+
+.contact-info h4 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.contact-info p {
+    font-size: 16px;
+    color: #555;
+}
+
+/* فرم تماس */
+.contact-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    text-align: center;
+}
+
+.contact-form .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form .form-control {
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.contact-form button {
+    width: 100%;
+    font-size: 18px;
+}
+
+/* شبکه‌های اجتماعی */
+.social-media {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.social-media .social-icon {
+    display: inline-block;
+    font-size: 28px;
+    color: #555;
+    margin: 10px;
+    transition: 0.3s ease-in-out;
+}
+
+.social-media .social-icon:hover {
+    color: #0dcaf0;
+    transform: scale(1.1);
+}
+
+/* نقشه گوگل */
+.google-map {
+    margin-top: 30px;
+    text-align: center;
+}
+
 </style>
 
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>به وب‌سایت ما خوش آمدید</h1>
+        <h1>من امین مقتدر مدیر و برنامه نویس این پلتفرم هستم</h1>
+        <p>بهترین مقالات، اخبار و کتاب‌های علمی را اینجا بیابید</p>
+        <p>ما به شما کمک می کنیم تا به اهدافتان برسید</p>
+        <a href="#services" class="btn btn-primary">مشاهده بیشتر</a>
+    </div>
+</div>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <img src="https://placehold.it/1200x500?text=Image%201" alt="First Slide">
-            <div class="carousel-caption">
-                <h3>فروش ویژه</h3>
-                <p>تخفیف های باورنکردنی در محصولات منتخب.</p>
+<!-- بخش خدمات -->
+<div id="services" class="container text-center">
+    <h2 class="section-title">📚 خدمات ما</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-book"></i>
+                <h3>کتاب‌های علمی</h3>
+                <p>دسترسی به منابع معتبر علمی برای دانشجویان و پژوهشگران</p>
             </div>
         </div>
-
-        <div class="item">
-            <img src="https://placehold.it/1200x500?text=Image%202" alt="Second Slide">
-            <div class="carousel-caption">
-                <h3>جدیدترین مقالات</h3>
-                <p>مطالب آموزشی و کاربردی برای شما.</p>
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-newspaper"></i>
+                <h3>اخبار روز</h3>
+                <p>آخرین اخبار تکنولوژی، علمی و نوآوری‌ها را دنبال کنید</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-users"></i>
+                <h3>انجمن علمی</h3>
+                <p>ارتباط با متخصصین، اساتید دانشگاهی و پژوهشگران حرفه‌ای</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-laptop-code"></i>
+                <h3>دوره‌های آموزشی</h3>
+                <p>آموزش‌های ویدیویی و مقالات تخصصی برای یادگیری عمیق</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>مشاوره پژوهشی</h3>
+                <p>راهنمایی در انتخاب موضوع پژوهشی و نگارش مقاله</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="service-card">
+                <i class="fas fa-certificate"></i>
+                <h3>مدارک و گواهینامه‌ها</h3>
+                <p>دریافت گواهینامه‌های معتبر بین‌المللی پس از اتمام دوره‌ها</p>
             </div>
         </div>
     </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
 </div>
 
-<div class="container text-center">
-    <h3>خدمات ما</h3>
-    <p>ما به شما کمک می کنیم تا به اهدافتان برسید.</p>
+<!-- بخش ویژگی‌ها -->
+<div class="container features text-center">
+    <h2 class="section-title">✨ ویژگی‌های ما</h2>
     <div class="row">
-        <div class="col-sm-4">
-            <img src="https://placehold.it/350x200?text=Service%201" class="img-responsive" alt="پروژه اول">
-            <h4>پروژه جاری</h4>
-            <p>توضیحات مربوط به پروژه جاری.</p>
+        <div class="col-md-3 feature-box">
+            <i class="fas fa-chart-line"></i>
+            <h3>تحلیل‌های تخصصی</h3>
+            <p>بررسی و تحلیل علمی و فنی در موضوعات مختلف</p>
         </div>
-        <div class="col-sm-4">
-            <img src="https://placehold.it/350x200?text=Service%202" class="img-responsive" alt="پروژه دوم">
-            <h4>پروژه دوم</h4>
-            <p>توضیحات مربوط به پروژه دوم.</p>
+        <div class="col-md-3 feature-box">
+            <i class="fas fa-clock"></i>
+            <h3>به‌روزرسانی مستمر</h3>
+            <p>محتوای جدید و دست اول به‌صورت روزانه</p>
         </div>
-        <div class="col-sm-4">
-            <div class="well">
-                <h4>درباره ما</h4>
-                <p>ما یک تیم متخصص در زمینه ... هستیم.</p>
+        <div class="col-md-3 feature-box">
+            <i class="fas fa-shield-alt"></i>
+            <h3>اعتبار علمی بالا</h3>
+            <p>استفاده از منابع علمی معتبر و بین‌المللی</p>
+        </div>
+        <div class="col-md-3 feature-box">
+            <i class="fas fa-globe"></i>
+            <h3>دسترسی جهانی</h3>
+            <p>مقالات و منابع در دسترس کاربران از سراسر جهان</p>
+        </div>
+    </div>
+</div>
+
+<!-- بخش نظرات کاربران -->
+<div class="container features text-center">
+    <h2 class="section-title">💬 برخی از نظرات کاربران</h2>
+    <div class="row">
+        <!-- نظر اول -->
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user1" class="testimonial-img">
+                <blockquote>
+                    <p>مقالات علمی این وب‌سایت بسیار مفید و جامع هستند. از مهندس مقتدر برای وب‌سایت خوب‌شان تشکر می‌کنم</p>
+                    <cite>دکتر محمد رضایی</cite>
+                    <span>متخصص هوش مصنوعی</span>
+                </blockquote>
             </div>
-            <div class="well">
-                <h4>تماس با ما</h4>
-                <p>برای اطلاعات بیشتر با ما تماس بگیرید.</p>
+        </div>
+        <!-- نظر دوم -->
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user2" class="testimonial-img">
+                <blockquote>
+                    <p>من توانستم به منابع علمی عالی دسترسی پیدا کنم. سپاس از مهندس مقتدر</p>
+                    <cite>دکتر سارا احمدی</cite>
+                    <span>دانشجوی دندانپزشکی - دانشگاه تبریز</span>
+                </blockquote>
             </div>
         </div>
+        <!-- نظر سوم -->
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user3" class="testimonial-img">
+                <blockquote>
+                    <p>یک پلتفرم عالی برای علاقه‌مندان به دانش و علم! مقالات بسیار ارزشمند هستند</p>
+                    <cite>مهندس علی کریمی</cite>
+                    <span>طراح ارشد هوافضا - شرکت مپنا</span>
+                </blockquote>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user1" class="testimonial-img">
+                <blockquote>
+                    <p>مقالات بیشتری قرار دهید</p>
+                    <cite>دکتر هانیه قهرمانی</cite>
+                    <span>دکترای تخصصی پزشکی-دانشگاه تیریز</span>
+                </blockquote>
+            </div>
+        </div>
+        <!-- نظر دوم -->
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user2" class="testimonial-img">
+                <blockquote>
+                    <p>منابع آموزشی و ویدیویی هنوز قرار نگرفته اند </p>
+                    <cite>مهندس شریفی</cite>
+                    <span>شرکت آرکا هوشمند دقیق ایرانیان</span>
+                </blockquote>
+            </div>
+        </div>
+        <!-- نظر سوم -->
+        <div class="col-md-4">
+            <div class="testimonial-box">
+                <img src="https://via.placeholder.com/100" alt="user3" class="testimonial-img">
+                <blockquote>
+                    <p>ممنون از مهندس  عزیز بابت راه اندازی وب سایت خوبشون</p>
+                    <cite>دکتر مهسا سلطانی</cite>
+                    <span>دکترای فیزیک-دانشگاه تهران</span>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- بخش تماس با ما -->
+<div class="container contact text-center">
+    <h2 class="section-title">📞 تماس با ما</h2>
+    <p>سؤالی دارید؟ با ما در تماس باشید</p>
+
+    <div class="row">
+        <!-- اطلاعات تماس -->
+        <div class="col-md-4 contact-info">
+            <i class="fas fa-phone-alt"></i>
+            <h4>شماره تماس</h4>
+            <p>📞 ۰۲۱-</p>
+        </div>
+        <div class="col-md-4 contact-info">
+            <i class="fas fa-envelope"></i>
+            <h4>ایمیل</h4>
+            <p>📧 <a href="mailto:info@example.com">amcivil369@yahoo.com</a></p>
+        </div>
+        <div class="col-md-4 contact-info">
+            <i class="fas fa-map-marker-alt"></i>
+            <h4>آدرس</h4>
+            <p>📍 تهران، خیابان انقلاب، ساختمان شماره ۲۰</p>
+        </div>
+    </div>
+
+    <!-- فرم تماس -->
+    <div class="contact-form">
+        <h3>📩 فرم ارسال پیام</h3>
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="نام و نام خانوادگی" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="ایمیل شما" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="4" placeholder="پیام شما..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">ارسال پیام</button>
+        </form>
+    </div>
+
+    <!-- شبکه‌های اجتماعی -->
+    <div class="social-media">
+        <h3>🌐 ما را در شبکه‌های اجتماعی دنبال کنید</h3>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+    </div>
+
+    <!-- نقشه گوگل -->
+    <div class="google-map">
+        <h3>📍 موقعیت ما روی نقشه</h3>
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0861251070046!2d-122.41941548468169!3d37.774929279759675!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ2JzI5LjgiTiAxMjLCsDI1JzEwLjAiVw!5e0!3m2!1sen!2sus!4v1630488705247!5m2!1sen!2sus" 
+            width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
     </div>
 </div>
 

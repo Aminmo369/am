@@ -1,173 +1,318 @@
 {% load bootstrap3 %}
-
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="fa">
+
 <head>
+    {% bootstrap_css %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>وب‌سایت</title>
-
+    <title>وب‌سایت مدرن</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome (برای آیکون‌ها) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <!-- Optional: Font Awesome for more icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
-    <style>
+ <style>
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40; /* Darker, more readable text */
+            background-color: #f0f2f5;
+            color: #333;
         }
-
-        /* Navbar styles */
+        
+        /* Navbar Styles */
         .navbar {
-            margin-bottom: 20px; /* Added margin */
-            border-radius: 0;
-            background-color: #343a40; /* Dark background */
-            border: none;
-            min-height: 60px; /* Ensure adequate height */
-        }
-
-        .navbar-brand {
-            color: #fff !important; /* White text for brand */
-            font-size: 24px;
-            line-height: 30px; /* Vertically center the brand */
-            padding: 15px;
-        }
-
-        .navbar-nav > li > a {
-            color: #fff !important;
-            line-height: 30px; /* Vertically center links */
-            padding-top: 15px;
-            padding-bottom: 15px;
-        }
-
-        .navbar-nav > li > a:hover,
-        .navbar-nav > li > a:focus {
-            background-color: rgba(255, 255, 255, 0.1); /* Subtle hover */
-        }
-
-        .navbar-toggle {
-            border-color: #fff;
-        }
-
-        .navbar-toggle .icon-bar {
-            background-color: #fff;
-        }
-
-        /* Carousel styles */
-        .carousel-inner img {
-            width: 100%;
-            margin: auto;
-            min-height: 300px; /* Increased minimum height */
-            max-height: 500px;  /* Added maximum height for better control */
-            object-fit: cover; /* Ensure images fill the space without distortion */
-        }
-
-        .carousel-caption {
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 20px;
+            background: rgba(0, 0, 0, 0.7); /* شفافیت برای ظاهر مدرن */
+            backdrop-filter: blur(10px); /* افکت گلس */
             border-radius: 10px;
-            bottom: 50px; /* Position the caption */
+            padding: 10px 20px;
         }
 
-        /* Content styles */
-        .container {
-            padding: 20px;
+/* Brand Logo */
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: #ffcc00; /* رنگ طلایی */
+        transition: 0.3s;
         }
 
-        .text-center {
-            text-align: center;
+        .logo:hover {
+            color: #ffffff;
         }
 
-        .row {
-            margin-bottom: 20px;
+/* Navbar Links */
+        .navbar-nav .nav-link {
+            color: white !important;
+            font-size: 18px;
+            font-weight: 500;
+            transition: 0.3s ease-in-out;
+            padding: 10px 15px;
         }
 
-        .img-responsive {
-            width: 100%;
-            object-fit: cover; /* Ensure images fill the space without distortion */
-            height: 150px;   /* Added height */
-        }
-
-        .well {
-            background-color: #fff;
-            border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            padding: 20px;
+        .navbar-nav .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 5px;
         }
 
-        /* Footer styles */
-        footer {
-            background-color: #343a40; /* Dark background */
-            color: #fff;
-            padding: 25px;
+/* Buttons */
+        .navbar-buttons .btn {
+            font-size: 16px;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .navbar-buttons .btn-outline-light:hover {
+            background-color: #ffcc00;
+            color: #000;
+            border: none;
+        }
+
+        .navbar-buttons .btn-primary {
+            background-color: #ffcc00;
+            border-color: #ffcc00;
+        }
+
+        .navbar-buttons .btn-primary:hover {
+            background-color: #ffaa00;
+            border-color: #ffaa00;
+        }
+
+/* Responsive */
+        @media (max-width: 768px) {
+             .navbar {
+                    text-align: center;
+                }
+            .navbar-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+        }
+
+
+        
+        /* Hero Section */
+        .hero {
+            background: url('https://source.unsplash.com/1600x900/?technology') no-repeat center center;
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+        .hero h1 {
+            font-size: 3rem;
+        }
+        
+        /* Cards Section */
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             text-align: center;
         }
-        footer a {
-            color: #fff;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
+        .footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        background: linear-gradient(135deg, #1f1f1f, #343a40);
+        box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
+    }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .carousel-caption {
-                display: none;
-            }
-            .navbar-brand {
-                font-size: 20px; /* Smaller brand on smaller screens */
-            }
+    .footer-section h5 {
+        margin-bottom: 15px;
+        color: #f8f9fa;
+    }
 
+    .footer-section p {
+        color: #dcdcdc;
+    }
+
+    .footer ul li {
+        padding: 5px 0;
+    }
+
+    .footer ul li a {
+        transition: color 0.3s ease-in-out;
+    }
+
+    .footer ul li a:hover {
+        color: #17a2b8 !important;
+    }
+
+    .social-icons a {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .social-icons a:hover {
+        background: #17a2b8;
+        transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+        .footer-section {
+            text-align: center;
+            margin-bottom: 20px;
         }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    }
+.social-icons a {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 20px;
+    color: white;
+    transition: 0.3s;
+}
 
+.social-icons a:hover {
+    color: #0dcaf0; /* رنگ آبی بوت‌استرپ */
+}
+
+/* استایل خوشامدگویی به کاربر */
+.navbar-welcome {
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.welcome-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(90deg, #0dcaf0, #007bff);
+    padding: 8px 15px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.welcome-text i {
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.welcome-text:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+</style>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+{% bootstrap_javascript %}
+
 <body>
- 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">AM</a>
-        </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url 'webchat:index' %}"><i class="fas fa-home"></i> خانه</a></li>
-                <li><a href="{% url 'webchat:topics' %}"><i class="fas fa-newspaper"></i> مقالات</a></li>
-                <li><a href="{% url 'webchat:book_list' %}"><i class="fas fa-book"></i> فروشگاه کتاب</a></li>
-                <li><a href="{% url 'webchat:article_list' %}"><i class="fas fa-newspaper"></i>اخبار علمی</a></li>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <!-- Brand -->
+        <a class="navbar-brand logo" href="#">AMIN.M</a>
+
+        <!-- Toggle Button for Mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" href="{% url 'webchat:index' %}">خانه</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'webchat:topics' %}">مقالات</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'webchat:book_list' %}">فروشگاه</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'webchat:article_list' %}">اخبار</a></li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
+            
+
+            </ul>
+            <!-- Login & Signup Buttons -->
+            <ul class="navbar-nav navbar-buttons">
                 {% if user.is_authenticated %}
-                    <li><p class="navbar-text">Hello, {{ user.username }}.</p></li>
-                    <li><a href="{% url 'users:logout' %}"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
-                {% else %}
-                    <li><a href="{% url 'users:login' %}"><i class="fas fa-sign-in-alt"></i> ورود</a></li>
-                    <li><a href="{% url 'users:register' %}"><i class="fas fa-user-plus"></i> ثبت نام</a></li>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="navbar-welcome">
+                        <span class="welcome-text">
+                            <i class="fas fa-user-circle"></i>  
+                            خوش آمدید، <strong>{{ user.username }}</strong>!  
+                        </span>
+                    </li>
+                </ul>
+                <li><a href="{% url 'users:logout' %}"class="btn btn-primary"><i class="fas fa-sign-out-alt"></i> خروج</a></li>
+                {% else %}              
+                <li class="nav-item">
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-light me-2"><i class="fas fa-sign-in-alt"></i> ورود</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:register' %}" class="btn btn-primary"><i class="fas fa-user-plus"></i> ثبت نام</a>
+                </li>
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
-{% block content %}
 
+{% block content %} {% endblock content %}
 
-{% endblock content %}
-{% block footer %}
-<footer class="container-fluid text-center">
-  <p>&copy; 2024 AM. All rights reserved. | <a href="#">Terms of Use</a> | <a href="#">Privacy Policy</a></p>
+<!-- Footer -->
+<footer class="footer mt-5 py-5 bg-dark text-white">
+    <div class="container">
+        <div class="row">
+            <!-- بخش اطلاعات -->
+            <div class="col-md-4 footer-section">
+                <h5 class="text-uppercase fw-bold">درباره ما</h5>
+                <p class="small">
+                    من متخصص هوش مصنوعی در هوافضا، برنامه‌نویسی جنگو، ریاضیات، فیزیک و پایتون هستم
+                    این وب‌سایت به‌طور کامل توسط من طراحی و برنامه‌نویسی شده است
+                </p>
+            </div>
+
+            <!-- بخش لینک‌های سریع -->
+            <div class="col-md-4 footer-section">
+                <h5 class="text-uppercase fw-bold">لینک‌های سریع</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-white text-decoration-none">🏠 خانه</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">📖 مقالات</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">📰 اخبار</a></li>
+                    <li><a href="#" class="text-white text-decoration-none">📞 تماس با ما</a></li>
+                </ul>
+            </div>
+
+            <!-- بخش شبکه‌های اجتماعی -->
+            <div class="col-md-4 footer-section text-center">
+                <h5 class="text-uppercase fw-bold">ما را دنبال کنید</h5>
+                <div class="social-icons mt-3">
+                    <a href="#" class="text-white mx-2"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white mx-2"><i class="fab fa-linkedin fa-lg"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- کپی‌رایت -->
+        <div class="text-center mt-4 border-top pt-3">
+            <p class="mb-0 small">&copy; 2025 <strong>AMIN Moghtader</strong> - تمامی حقوق این وب سایت محفوظ است</p>
+        </div>
+    </div>
 </footer>
-{% endblock footer %}
+
+</body>
+</html>

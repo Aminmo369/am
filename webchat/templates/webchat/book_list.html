@@ -1,166 +1,184 @@
 {% extends "webchat/base.html" %}
+{% load static %}
 
-
-
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لیست کتاب‌ها</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
 {% block content %}
-    <style>
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            direction: rtl;
-            background-color: #f8f9fa; /* Light background */
-        }
+<style>
+    body {
+        font-family: 'Vazirmatn', sans-serif;
+        direction: rtl;
+        background-color: #f4f6f9;
+        color: #2c3e50;
+        line-height: 1.7;
+    }
 
+    /* استایل آیتم‌های سایدبار */
+    .sidebar .nav {
+        padding-left: 0;
+        list-style: none;
+    }
+
+    .sidebar .nav-item {
+        padding: 10px 20px;
+    }
+
+    .sidebar .nav-link {
+        display: block;
+        font-size: 1rem;
+        color: #343a40;
+        text-decoration: none;
+        transition: background 0.3s ease-in-out;
+        border-radius: 6px;
+        padding: 10px;
+    }
+
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* برای ایجاد فضای مناسب در محتوای اصلی */
+    .main-content {
+        margin-left: 260px; /* به اندازه سایدبار + فضای اضافی */
+        padding: 20px;
+    }
+
+
+    .content {
+        margin-right: 260px;
+        padding: 30px;
+    }
+
+    .book-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .book-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .list-group-item {
+        border: none;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+    }
+
+    .list-group-item:last-child {
+        border-bottom: none;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
         .sidebar {
-            background-color: #343a40; /* Dark background for sidebar */
-            color: white;
-            padding-top: 20px;
-            height: 100vh; /* Full height */
-            position: fixed; /* Fixed position */
-            width: 220px; /* Fixed width */
-            overflow-x: hidden; /* Disable horizontal scroll */
-            padding: 20px;
-
-        }
-
-        .sidebar a {
-            padding: 6px 8px 6px 16px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #818181;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            color: #f1f1f1;
+            width: 100%;
+            height: auto;
+            position: relative;
         }
 
         .content {
-            margin-right: 220px; /* Adjust margin to match sidebar width */
-            padding: 20px;
+            margin-right: 0;
         }
 
         .book-item {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 8px;
-            background-color: white; /* White background for book items */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            text-align: center;
         }
+    }
+</style>
+<!-- محتوای اصلی -->
 
-        .book-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
+<div class="container-fluid">
+    <div class="row">
 
-        .list-group-item {
-            border: none;
-            border-bottom: 1px solid #eee; /* Light border between list items */
-            padding: 10px 0;
-        }
-        .list-group-item:last-child {
-            border-bottom: none; /* Remove border from last item */
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-</head>
-<body>
+<!-- Sidebar ثابت -->
+<nav class="sidebar">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">📚 لیست کتاب‌ها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">✍ لیست نویسندگان</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">📂 دسته‌بندی‌ها</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">⚙ تنظیمات</a>
+        </li>
+    </ul>
+</nav>
+<div class="main-content">
+    <h2>🏠 صفحه اصلی</h2>
+    <p>محتوای اصلی صفحه در اینجا قرار دارد...</p>
+</div>
+        <!-- Main Content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 content">
+            <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-4 border-bottom">
+                <h1 class="h3">📚 لیست کتاب‌ها</h1>
+            </div>
 
-    <div class="container-fluid">
-        <div class="row">
-
-            <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-                <div class="position-sticky">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                لیست کتاب‌ها
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                لیست نویسندگان
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                دسته‌بندی‌ها
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                تنظیمات
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            
-            <!-- Main Content -->
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">لیست کتاب‌ها</h1>
-                </div>
-
-                <div class="row">
-                    {% for book in books %}
-                    <div class="col-md-4 book-item">
+            <div class="row">
+                {% for book in books %}
+                <div class="col-md-4">
+                    <div class="book-item">
                         {% if book.image %}
                             <img src="{{ book.image.url }}" alt="{{ book.title }}" class="book-image">
                         {% else %}
                             <img src="http://via.placeholder.com/300x200" alt="تصویر موجود نیست" class="book-image">
                         {% endif %}
-                        <h2>{{ book.title }}</h2>
-                        <p><strong>نویسنده:</strong> {{ book.author.name }}</p>
-                        <p><strong>تاریخ انتشار:</strong> {{ book.published_date }}</p>
-                        <p><strong>قیمت:</strong> {{ book.price }} تومان</p>
+                        <h5 class="mt-2">{{ book.title }}</h5>
+                        <p><strong>✍ نویسنده:</strong> {{ book.author.name }}</p>
+                        <p><strong>📅 تاریخ انتشار:</strong> {{ book.published_date }}</p>
+                        <p><strong>💰 قیمت:</strong> {{ book.price }} تومان</p>
                         {% if book.is_available %}
                             <span class="badge bg-success">موجود</span>
                         {% else %}
                             <span class="badge bg-danger">ناموجود</span>
                         {% endif %}
                     </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <div class="alert alert-warning text-center">🚨 هیچ کتابی موجود نیست.</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-5">
+                <h2>✍ لیست نویسندگان</h2>
+                <ul class="list-group">
+                    {% for author in authors %}
+                        <li class="list-group-item">
+                            <strong>{{ author.name }}</strong> - <a href="mailto:{{ author.email }}">{{ author.email }}</a>
+                        </li>
                     {% empty %}
-                    <div class="col-md-12">
-                        <p>هیچ کتابی موجود نیست.</p>
-                    </div>
+                        <li class="list-group-item text-danger">هیچ نویسنده‌ای موجود نیست.</li>
                     {% endfor %}
-                </div>
-
-                <div class="mt-5">
-                    <h2>لیست نویسندگان</h2>
-                    <ul class="list-group">
-                        {% for author in authors %}
-                            <li class="list-group-item">
-                                <strong>{{ author.name }}</strong> - <a href="mailto:{{ author.email }}">{{ author.email }}</a>
-                            </li>
-                        {% empty %}
-                            <li class="list-group-item">هیچ نویسنده‌ای موجود نیست.</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </main>
-        </div>
+                </ul>
+            </div>
+        </main>
     </div>
+</div>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-</body>
-</html>
 {% endblock content %}

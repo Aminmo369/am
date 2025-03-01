@@ -46,8 +46,8 @@ INSTALLED_APPS = [
     #my app
     'webchat',
     'users',
-    'bootstrap3'
-    #'bootstrap5'
+    'bootstrap3',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -138,6 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #setting for django -bootstrap
 BOOTSTRAP3 = {
+    'include_jquery':True,
+}
+BOOTSTRAP5 = {
     'include_jquery':True,
 }
 
