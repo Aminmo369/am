@@ -1,12 +1,15 @@
 asgiref==3.8.1
+beautifulsoup4==4.13.3
 dj-database-url==2.3.0
 dj-static==0.0.6
-Django==5.1.6
+Django==4.2.19
+django-bootstrap-v5==1.0.11
 django-bootstrap3==24.3
 django-bootstrap5==24.3
 gunicorn==23.0.0
 packaging==24.2
 pillow==11.1.0
+soupsieve==2.6
 sqlparse==0.5.3
 static3==0.7.0
 typing_extensions==4.12.2
